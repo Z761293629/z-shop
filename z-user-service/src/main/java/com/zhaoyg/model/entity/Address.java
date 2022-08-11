@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,8 +18,7 @@ import lombok.Setter;
  * @author zhao
  * @since 2022-08-11
  */
-@Getter
-@Setter
+@Data
 @ApiModel(value = "Address对象", description = "电商-公司收发货地址表")
 public class Address implements Serializable {
 
