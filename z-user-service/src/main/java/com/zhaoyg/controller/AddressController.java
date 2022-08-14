@@ -4,16 +4,13 @@ package com.zhaoyg.controller;
 import com.zhaoyg.model.entity.Address;
 import com.zhaoyg.service.AddressService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -26,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "收货地址模块")
 @RestController
-@RequestMapping("/api/v1/address")
+@RequestMapping("/api/address/v1")
 @RequiredArgsConstructor
 public class AddressController {
 

@@ -9,6 +9,15 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/z_user?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: rootroot
+  redis:
+    host: localhost
+    port: 6379
+  mail:
+    from: ${MAIL_USERNAME}
+    host: smtp.qq.com
+    port: 25
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PWD}
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -16,3 +25,7 @@ mybatis-plus:
 logging:
   level:
     root: info
+minio:
+  endpoint: http://127.0.0.1:9000/
+  accessKey: abcd
+  secretKey: zhao1215

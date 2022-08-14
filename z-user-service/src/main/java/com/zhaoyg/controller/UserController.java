@@ -1,14 +1,17 @@
 package com.zhaoyg.controller;
 
-
-import com.zhaoyg.model.entity.User;
+import com.zhaoyg.request.UserLoginRequest;
+import com.zhaoyg.request.UserRegisterRequest;
 import com.zhaoyg.service.UserService;
+import com.zhaoyg.util.Result;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -18,15 +21,38 @@ import org.springframework.web.bind.annotation.RestController;
  * @author zhao
  * @since 2022-08-11
  */
+@Api(tags = "用户模块")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user/v1")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("{id}")
-    public User getById(@PathVariable("id") Long id) {
-        return userService.getById(id);
+    @ApiOperation("获取用户详情")
+    @GetMapping("/detail")
+    public Result detail() {
+        return userService.detail();
     }
+
+    @ApiOperation("上传头像")
+    @PostMapping("/head")
+    public Result upload(
+            @ApiParam(name = "file", value = "头像文件") @RequestPart("file") MultipartFile file) {
+        return userService.uploadImg(file);
+    }
+
+    @ApiOperation("注册用户")
+    @PostMapping("/register")
+    public Result register(@RequestBody UserRegisterRequest userRegisterRequest) {
+        return userService.register(userRegisterRequest);
+    }
+
+    @ApiOperation("用户登录")
+    @PostMapping("/login")
+    public Result login(@RequestBody UserLoginRequest userLoginRequest,
+                        HttpServletRequest httpServletRequest) {
+        return userService.login(userLoginRequest, httpServletRequest);
+    }
+
 }
 
