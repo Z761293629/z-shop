@@ -2,6 +2,8 @@ package com.zhaoyg.service;
 
 import com.zhaoyg.model.entity.Address;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhaoyg.request.AddressAddRequest;
+import com.zhaoyg.util.Result;
 
 /**
  * <p>
@@ -12,5 +14,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-08-11
  */
 public interface AddressService extends IService<Address> {
+
+    void addAddress(AddressAddRequest addressAddRequest);
+
+    Result detail(Long addressId);
+
+    Result delete(Long addressId);
+
+    Result listAllAddressOfUser();
 
 }

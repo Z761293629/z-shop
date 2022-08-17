@@ -12,7 +12,7 @@ import java.util.Collections;
  */
 public class AutoGenerator {
 
-    private static final String URL = "jdbc:mysql://127.0.0.1:3306/z_user";
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/z_coupon";
     private static final String USER = "root";
     private static final String PWD = "rootroot";
     private static final String FINAL_PROJECT_PATH = "/Users/z/Desktop";
