@@ -2,9 +2,11 @@ package com.zhaoyg.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -12,7 +14,7 @@ import lombok.Setter;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zhao
@@ -25,7 +27,7 @@ public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     @ApiModelProperty("标题")
@@ -38,10 +40,10 @@ public class Product implements Serializable {
     private String detail;
 
     @ApiModelProperty("老价格")
-    private BigDecimal oldPrice;
+    private BigDecimal oldAmount;
 
     @ApiModelProperty("新价格")
-    private BigDecimal price;
+    private BigDecimal amount;
 
     @ApiModelProperty("库存")
     private Integer stock;

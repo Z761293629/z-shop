@@ -1,7 +1,9 @@
 package com.zhaoyg.service;
 
+import com.zhaoyg.entity.ProductMessage;
 import com.zhaoyg.model.entity.Product;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhaoyg.request.LockProductRequest;
 import com.zhaoyg.util.Result;
 
 /**
@@ -17,4 +19,8 @@ public interface ProductService extends IService<Product> {
     Result page(Integer page, Integer size);
 
     Result detail(Long id);
+
+    Result lockProducts(LockProductRequest lockProductRequest);
+
+    boolean releaseProductStock(ProductMessage productMessage);
 }

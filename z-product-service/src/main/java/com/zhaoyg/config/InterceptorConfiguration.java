@@ -18,7 +18,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
     public void addInterceptors(@NotNull InterceptorRegistry registry) {
         InterceptorRegistration registration = registry.addInterceptor(new AuthInterceptor());
         registration.addPathPatterns(
-                ""
+                "/api/cart/*/**"
         );
         registration.excludePathPatterns(
                 ""

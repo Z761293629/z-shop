@@ -46,7 +46,21 @@ public enum BizCodeEnum {
     COUPON_GET_FAIL(310007, "领取失败"),
     COUPON_LOCK_FAIL(310008, "请勿重复调用"),
 
-    COUPON_RECORD_DONT_EXIST(320001, "优惠券记录不存在");
+    COUPON_RECORD_DONT_EXIST(320001, "优惠券记录不存在"),
+    COUPON_RECORD_LOCK_FAIL(320002, "优惠券记录锁定失败"),
+
+
+    PRODUCT_NOT_EXIST(410001, "商品不存在"),
+    PRODUCT_STOCK_LOCK_FAIL(410001, "商品库存锁定失败"),
+
+    CART_EMPTY(420001, "购物车为空"),
+
+    CART_PRODUCT_DONT_EXIT(420002, "购物车无该产品"),
+
+
+    ORDER_DONT_EXIST(510001, "订单不存在"),
+    ORDER_CONFIRM_CART_ITEM_DONT_EXIST(510002, "购物车商品项不存在"),
+    ORDER_CONFIRM_COUPON_FAIL(510003, "优惠券验券失败");
 
 
     @Getter

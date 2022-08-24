@@ -4,13 +4,16 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.BCrypt;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zhaoyg.entity.LoginUser;
 import com.zhaoyg.enums.BizCodeEnum;
 import com.zhaoyg.enums.SendCodeEnum;
+import com.zhaoyg.feign.CouponFeignService;
 import com.zhaoyg.interceptor.AuthInterceptor;
 import com.zhaoyg.model.entity.User;
 import com.zhaoyg.mapper.UserMapper;
+import com.zhaoyg.request.NewUserCouponRequest;
 import com.zhaoyg.request.UserLoginRequest;
 import com.zhaoyg.request.UserRegisterRequest;
 import com.zhaoyg.service.FileService;
@@ -22,8 +25,10 @@ import com.zhaoyg.util.JwtUtil;
 import com.zhaoyg.util.Result;
 import com.zhaoyg.vo.UserVO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,12 +44,14 @@ import java.util.Optional;
  * @author zhao
  * @since 2022-08-11
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     private final FileService fileService;
     private final NotifyService notifyService;
+    private final CouponFeignService couponFeignService;
 
 
     @Override
@@ -61,6 +68,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
+    //@GlobalTransactional(rollbackFor = Exception.class)
     public Result register(UserRegisterRequest userRegisterRequest) {
         // 1.校验验证码
         boolean check = notifyService.checkCode(SendCodeEnum.USER_REGISTER, userRegisterRequest.getCode(), userRegisterRequest.getMail());
@@ -79,7 +87,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (!uniqueMail(userRegisterRequest.getMail())) {
             return Result.fail(BizCodeEnum.ACCOUNT_REPEAT);
         }
-        return Result.success(save(user));
+        save(user);
+        initUserRegisterCoupon(user);
+        // 测试异常  (分布式事务)
+        //int i = 1 / 0;
+        return Result.success();
+    }
+
+    private void initUserRegisterCoupon(User user) {
+        NewUserCouponRequest newUserCouponRequest = new NewUserCouponRequest();
+        newUserCouponRequest.setUserName(user.getName());
+        newUserCouponRequest.setUserId(user.getId());
+        Result result = couponFeignService.getNewUserCoupon(newUserCouponRequest);
+        log.info("[发送注册优惠券] userId=[{}] result=[{}]", user.getId(), JSONUtil.toJsonStr(result));
     }
 
     @Override

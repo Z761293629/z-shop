@@ -3,6 +3,10 @@ server:
 spring:
   application:
     name: z-user-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
   # mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -12,6 +16,15 @@ spring:
   redis:
     host: localhost
     port: 6379
+  rabbitmq:
+    addresses: 127.0.0.1
+    port: 5672
+    username: admin
+    password: password
+    virtual-host: /
+    listener:
+      simple:
+        acknowledge-mode: manual
   mail:
     from: ${MAIL_USERNAME}
     host: smtp.qq.com
@@ -29,3 +42,12 @@ minio:
   endpoint: http://127.0.0.1:9000/
   accessKey: abcd
   secretKey: zhao1215
+
+# seata 配置
+seata:
+  tx-service-group: ${spring.application.name}-group
+  service:
+    grouplist:
+      z: 127.0.0.1:8091
+    vgroup-mapping:
+      z-user-service-group: z

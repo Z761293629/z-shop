@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaoyg.mapper.CouponTaskMapper">
+    <insert id="insertBatch">
+        INSERT INTO z_coupon.coupon_task
+            (coupon_record_id, create_time, out_trade_no, lock_state)
+        VALUES
+        <foreach collection="couponTaskList" item="couponTask" separator=",">
+            (#{couponTask.couponRecordId}, #{couponTask.createTime}, #{couponTask.outTradeNo}, #{couponTask.lockState})
+        </foreach>
+    </insert>
+</mapper>

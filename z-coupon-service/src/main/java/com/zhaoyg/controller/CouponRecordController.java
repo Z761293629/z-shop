@@ -1,6 +1,7 @@
 package com.zhaoyg.controller;
 
 
+import com.zhaoyg.request.LockCouponRequest;
 import com.zhaoyg.service.CouponRecordService;
 import com.zhaoyg.util.Result;
 import io.swagger.annotations.Api;
@@ -40,6 +41,11 @@ public class CouponRecordController {
         return couponRecordService.detail(recordId);
     }
 
+    @ApiOperation("锁定优惠券")
+    @PostMapping("/lock_records")
+    public Result lockCouponRecords(@RequestBody LockCouponRequest lockCouponRequest) {
+        return couponRecordService.lockCouponRecords(lockCouponRequest);
+    }
 
 }
 

@@ -3,6 +3,11 @@ server:
 spring:
   application:
     name: z-product-service
+  # nacos注册中心
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
   # mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -12,6 +17,15 @@ spring:
   redis:
     host: localhost
     port: 6379
+  rabbitmq:
+    addresses: 127.0.0.1
+    port: 5672
+    username: admin
+    password: password
+    virtual-host: /
+    listener:
+      simple:
+        acknowledge-mode: manual
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -23,3 +37,30 @@ minio:
   endpoint: http://127.0.0.1:9000/
   accessKey: abcd
   secretKey: zhao1215
+rabbit:
+  product:
+    #交换机
+    event-exchange: product.event.exchange
+    #延迟队列，不能被监听消费
+    release-delay-queue: product.release.delay.queue
+    #延迟队列的消息过期后转发的队列
+    release-queue: product.release.queue
+    #进入延迟队列的路由key
+    release-delay-routing-key: product.release.delay.routing.key
+    #消息过期，进入释放死信队列的key
+    release-routing-key: product.release.routing.key
+    #消息过期时间,毫秒,测试改为15秒
+    ttl: 15000
+  cart:
+    #交换机
+    event-exchange: cart.event.exchange
+    #延迟队列，不能被监听消费
+    release-delay-queue: cart.release.delay.queue
+    #延迟队列的消息过期后转发的队列
+    release-queue: cart.release.queue
+    #进入延迟队列的路由key
+    release-delay-routing-key: cart.release.delay.routing.key
+    #消息过期，进入释放死信队列的key
+    release-routing-key: cart.release.routing.key
+    #消息过期时间,毫秒,测试改为15秒
+    ttl: 15000

@@ -34,11 +34,11 @@ public class ProductVO implements Serializable {
     private String detail;
 
     @ApiModelProperty("老价格")
-    @JsonProperty("old_price")
-    private BigDecimal oldPrice;
+    @JsonProperty("old_amount")
+    private BigDecimal oldAmount;
 
     @ApiModelProperty("新价格")
-    private BigDecimal price;
+    private BigDecimal amount;
 
     @ApiModelProperty("库存")
     private Integer stock;

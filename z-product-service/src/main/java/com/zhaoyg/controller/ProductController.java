@@ -1,6 +1,7 @@
 package com.zhaoyg.controller;
 
 
+import com.zhaoyg.request.LockProductRequest;
 import com.zhaoyg.service.ProductService;
 import com.zhaoyg.util.Result;
 import io.swagger.annotations.Api;
@@ -38,6 +39,12 @@ public class ProductController {
     @GetMapping("{id}")
     public Result detail(@PathVariable("id") Long id) {
         return productService.detail(id);
+    }
+
+    @ApiOperation("锁定商品")
+    @PostMapping("/lock_products")
+    public Result lockProducts(@RequestBody LockProductRequest lockProductRequest) {
+        return productService.lockProducts(lockProductRequest);
     }
 }
 

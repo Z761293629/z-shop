@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhaoyg.mapper.CouponRecordMapper">
+    <update id="lockUseStateBatch">
+        UPDATE
+            z_coupon.coupon_record
+        SET use_state = #{useState}
+        WHERE user_id = #{userId}
+          AND use_state = 'NEW'
+          AND id IN
+        <foreach collection="couponRecordIds" item="couponRecordId" open="(" separator="," close=")">
+            #{couponRecordId}
+        </foreach>
+    </update>
 
+    <update id="updateUseState">
+        UPDATE
+            z_coupon.coupon_record
+        SET use_state = #{useState}
+        WHERE id = #{couponRecordId}
+    </update>
 </mapper>

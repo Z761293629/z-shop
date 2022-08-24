@@ -1,20 +1,27 @@
 package com.zhaoyg.util;
 
+import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhaoyg.enums.BizCodeEnum;
 import lombok.Data;
+
+import java.util.Objects;
 
 /**
  * @author zhao
  * @date 2022/8/11
  */
 @Data
-
 public class Result {
 
     private Integer code;
     private Object data;
     private String message;
 
+    public Result() {
+    }
 
     public Result(Integer code) {
         this.code = code;
@@ -55,6 +62,15 @@ public class Result {
 
     public static Result fail(String message) {
         return new Result(-1, message);
+    }
+
+
+    public boolean ok() {
+        return Objects.equals(0, code);
+    }
+
+    public <T> T getData(TypeReference<T> typeReference) {
+        return JSON.parseObject(JSON.toJSONString(data), typeReference);
     }
 
 }

@@ -38,9 +38,9 @@ public final class JwtUtil {
         try {
             Jwt result = Jwts.parser().setSigningKey(SECRET).parse(jwt.replace(JWT_PREFIX, ""));
             Claims claims = (Claims) result.getBody();
-            if (!Objects.equals(claims.get("ip"), CommonUtil.getIpAddr(request))) {
-                return null;
-            }
+            //if (!Objects.equals(claims.get("ip"), CommonUtil.getIpAddr(request))) {
+            //    return null;
+            //}
             LoginUser loginUser = new LoginUser();
             loginUser.setId(Long.parseLong(claims.get("id").toString()));
             loginUser.setMail(claims.get("mail").toString());

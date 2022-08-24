@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -99,6 +98,7 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    //@GlobalTransactional(rollbackFor = Exception.class)
     public Result newUserCoupon(Long userId, String userName) {
         // 新人优惠券数量不多 可以遍历发放
         List<Coupon> couponList = list(
@@ -109,6 +109,7 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
         for (Coupon coupon : couponList) {
             this.getCoupon(userId, userName, coupon.getId(), CouponCategoryEnum.NEW_USER);
         }
+        //int i = 1 / 0;
         return Result.success();
     }
 

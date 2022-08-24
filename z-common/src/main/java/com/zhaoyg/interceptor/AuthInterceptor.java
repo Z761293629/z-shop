@@ -21,6 +21,7 @@ import java.util.Objects;
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 
     public static final ThreadLocal<LoginUser> loginUserThreadLocal = new ThreadLocal<>();
+    public static final ThreadLocal<String> token = new ThreadLocal<>();
 
     @Override
     public boolean preHandle(@NotNull HttpServletRequest request,
@@ -30,6 +31,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         if (StringUtils.isNotBlank(authorization)) {
             LoginUser loginUser = JwtUtil.parseJwt(authorization, request);
             if (Objects.nonNull(loginUser)) {
+                token.set(authorization);
                 loginUserThreadLocal.set(loginUser);
                 return true;
             }
