@@ -50,4 +50,7 @@ rabbit:
     #消息过期，进入释放死信队列的key
     release-routing-key: order.release.routing.key
     #消息过期时间,毫秒,测试改为15秒
-    ttl: 15000
+    ttl: 900000
+pay:
+  ali:
+    callback-url: https://15gk49ehuv2s.ngrok.xiaomiqiu123.top/order/api/callback/v1/ali

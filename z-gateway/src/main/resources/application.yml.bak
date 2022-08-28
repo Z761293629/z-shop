@@ -1,0 +1,42 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: z-product-service
+          uri: lb://z-product-service
+          predicates:
+            - Path=/product/**
+          filters:
+            - StripPrefix=1
+        - id: z-user-service
+          uri: lb://z-user-service
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=1
+        - id: z-coupon-service
+          uri: lb://z-coupon-service
+          predicates:
+            - Path=/coupon/**
+          filters:
+            - StripPrefix=1
+        - id: z-order-service
+          uri: lb://z-order-service
+          predicates:
+            - Path=/order/**
+          filters:
+            - StripPrefix=1
+# 日志级别
+logging:
+  level:
+    root: info

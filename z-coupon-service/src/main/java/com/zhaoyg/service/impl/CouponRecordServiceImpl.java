@@ -95,11 +95,11 @@ public class CouponRecordServiceImpl extends ServiceImpl<CouponRecordMapper, Cou
             throw new BizException(BizCodeEnum.COUPON_RECORD_LOCK_FAIL);
         }
         // 2. 插入优惠券任务
-        String orderTradeOutNo = lockCouponRequest.getOrderTradeOutNo();
+        String orderOutTradeNo = lockCouponRequest.getOrderOutTradeNo();
         List<CouponTask> couponTaskList = couponRecordIds.stream().map(couponRecordId ->
                         CouponTask.builder()
                                 .couponRecordId(couponRecordId)
-                                .outTradeNo(orderTradeOutNo)
+                                .outTradeNo(orderOutTradeNo)
                                 .lockState(StockTaskStateEnum.LOCK.name())
                                 .createTime(LocalDateTime.now())
                                 .build()
@@ -112,7 +112,7 @@ public class CouponRecordServiceImpl extends ServiceImpl<CouponRecordMapper, Cou
         }
         // 3.记录发送至延时队列
         for (CouponTask couponTask : couponTaskList) {
-            CouponRecordMessage message = CouponRecordMessage.builder().couponTaskId(couponTask.getId()).orderTradeOutNo(orderTradeOutNo).build();
+            CouponRecordMessage message = CouponRecordMessage.builder().couponTaskId(couponTask.getId()).orderOutTradeNo(orderOutTradeNo).build();
             rabbitTemplate.convertAndSend(rabbitProperties.getCouponEventExchange(), rabbitProperties.getCouponReleaseDelayRoutingKey(), message);
             log.debug("[优惠券锁定记录] 发送至MQ中,message=[{}]", message);
         }
@@ -130,7 +130,7 @@ public class CouponRecordServiceImpl extends ServiceImpl<CouponRecordMapper, Cou
         }
         // 锁定记录为 LOCK 才进行处理
         if (couponTask.getLockState().equalsIgnoreCase(StockTaskStateEnum.LOCK.name())) {
-            Result result = productOrderFeignService.queryProductOrderState(recordMessage.getOrderTradeOutNo());
+            Result result = productOrderFeignService.queryProductOrderState(recordMessage.getOrderOutTradeNo());
             if (!result.ok()) {
                 log.error("[查询订单状态] 失败 message=[{}]", result.getMessage());
                 return false;

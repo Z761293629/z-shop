@@ -53,4 +53,4 @@ rabbit:
   #消息过期，进入释放死信队列的key
   coupon-release-routing-key: coupon.release.routing.key
   #消息过期时间,毫秒,测试改为15秒
-  ttl: 15000
+  ttl: 910000

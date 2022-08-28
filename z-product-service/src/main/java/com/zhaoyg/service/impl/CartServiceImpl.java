@@ -118,7 +118,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<CartItemVO> confirmOrderCartItems(List<Long> productIds, String orderTradeOutNo) {
+    public List<CartItemVO> confirmOrderCartItems(List<Long> productIds, String orderOutTradeNo) {
         Long userId = AuthInterceptor.loginUserThreadLocal.get().getId();
         List<CartItemVO> carItems = buildCarItems(true);
         return carItems
@@ -128,7 +128,7 @@ public class CartServiceImpl implements CartService {
                     if (productIds.contains(produceId)) {
                         removeItem(produceId);
                         CartItemMessage message = CartItemMessage.builder()
-                                .orderTradeOutNo(orderTradeOutNo)
+                                .orderOutTradeNo(orderOutTradeNo)
                                 .userId(userId)
                                 .productId(item.getProduceId())
                                 .buyNum(item.getBuyNum())

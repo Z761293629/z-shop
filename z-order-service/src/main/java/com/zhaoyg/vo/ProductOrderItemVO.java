@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  */
 public class ProductOrderItemVO {
     @JsonProperty("product_id")
-    private Long produceId;
+    private Long productId;
     @JsonProperty("product_title")
     private String productTitle;
     @JsonProperty("product_img")
@@ -21,12 +21,12 @@ public class ProductOrderItemVO {
     @JsonProperty("total_amount")
     private BigDecimal totalAmount;
 
-    public Long getProduceId() {
-        return produceId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setProduceId(Long produceId) {
-        this.produceId = produceId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getProductTitle() {

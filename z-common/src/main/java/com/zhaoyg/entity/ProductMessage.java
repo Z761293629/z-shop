@@ -17,6 +17,6 @@ public class ProductMessage {
 
     private Long productTaskId;
 
-    private String orderTradeOutNo;
+    private String orderOutTradeNo;
 
 }

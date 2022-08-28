@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: @artifactId@
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.0.110:8848
+        file-extension: yml

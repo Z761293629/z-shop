@@ -17,6 +17,6 @@ public class CouponRecordMessage {
 
     private Long couponTaskId;
 
-    private String orderTradeOutNo;
+    private String orderOutTradeNo;
 
 }

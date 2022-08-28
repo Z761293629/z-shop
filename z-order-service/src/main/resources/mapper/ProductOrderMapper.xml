@@ -3,9 +3,9 @@
 <mapper namespace="com.zhaoyg.mapper.ProductOrderMapper">
     <update id="updateState">
         UPDATE
-            z_order.product_order
+        z_order.product_order
         SET `state` = #{newState}
-        WHERE out_trade_no = #{orderTradeOutNo}
-          AND `state` = #{oldState}
+        WHERE out_trade_no = #{orderOutTradeNo}
+        AND `state` = #{oldState}
     </update>
 </mapper>

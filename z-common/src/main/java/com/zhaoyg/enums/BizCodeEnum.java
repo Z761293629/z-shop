@@ -60,7 +60,11 @@ public enum BizCodeEnum {
 
     ORDER_DONT_EXIST(510001, "订单不存在"),
     ORDER_CONFIRM_CART_ITEM_DONT_EXIST(510002, "购物车商品项不存在"),
-    ORDER_CONFIRM_COUPON_FAIL(510003, "优惠券验券失败");
+    ORDER_CONFIRM_COUPON_FAIL(510003, "优惠券验券失败"),
+    ORDER_ALIPAY_FAIL(510004, "ali支付失败"),
+    ORDER_STATE_ILLEGAL(510005, "订单状态非法"),
+    ORDER_CONFIRM_TOKEN_EQUAL_FAIL(510006, "订单令牌不正确"),
+    ;
 
 
     @Getter

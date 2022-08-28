@@ -34,15 +34,13 @@ public class CartTaskMQListener {
     public void handlerCouponTask(CartItemMessage cartMessage, Message message, Channel channel) {
         log.info("[购物车] 接收MQ中消息 message=[{}]", cartMessage);
         long deliveryTag = message.getMessageProperties().getDeliveryTag();
-        Result result = productOrderFeignService.queryProductOrderState(cartMessage.getOrderTradeOutNo());
+        Result result = productOrderFeignService.queryProductOrderState(cartMessage.getOrderOutTradeNo());
         boolean flag = Objects.equals(result.getCode(), BizCodeEnum.ORDER_DONT_EXIST.getCode());
         try {
             if (flag) {
                 cartService.recoverItem(cartMessage);
-                channel.basicAck(deliveryTag, false);
-            } else {
-                channel.basicReject(deliveryTag, true);
             }
+            channel.basicAck(deliveryTag, false);
         } catch (IOException e) {
             log.error("[购物车] MQ消费错误 message=[{}]", cartMessage, e);
         }

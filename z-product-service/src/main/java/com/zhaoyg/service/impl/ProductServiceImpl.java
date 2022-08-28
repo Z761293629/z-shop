@@ -76,7 +76,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Result lockProducts(LockProductRequest lockProductRequest) {
-        String orderTradeOutNo = lockProductRequest.getOrderTradeOutNo();
+        String orderOutTradeNo = lockProductRequest.getOrderOutTradeNo();
         List<OrderItemRequest> orderItems = lockProductRequest.getOrderItems();
         List<Long> productIds = orderItems.stream().map(OrderItemRequest::getProductId).collect(Collectors.toList());
         Map<Long, Product> productMap = listByIds(productIds).stream().collect(Collectors.toMap(Product::getId, Function.identity()));
@@ -88,16 +88,16 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
                 throw new BizException(BizCodeEnum.PRODUCT_STOCK_LOCK_FAIL);
             }
             ProductTask productTask = ProductTask.builder()
-                    .outTradeNo(orderTradeOutNo)
+                    .outTradeNo(orderOutTradeNo)
                     .productId(productId)
-                    .productName(productMap.get(productId).getTitle())
+                    .productTitle(productMap.get(productId).getTitle())
                     .buyNum(buyNum)
                     .lockState(StockTaskStateEnum.LOCK.name())
                     .createTime(LocalDateTime.now())
                     .build();
             productTaskService.save(productTask);
             // 发送MQ消息到延时队列
-            ProductMessage message = ProductMessage.builder().productTaskId(productTask.getId()).orderTradeOutNo(orderTradeOutNo).build();
+            ProductMessage message = ProductMessage.builder().productTaskId(productTask.getId()).orderOutTradeNo(orderOutTradeNo).build();
             rabbitTemplate.convertAndSend(rabbitProperties.getEventExchange(), rabbitProperties.getReleaseDelayRoutingKey(), message);
         }
         return Result.success();
@@ -107,14 +107,14 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     @Transactional(rollbackFor = Exception.class)
     public boolean releaseProductStock(ProductMessage productMessage) {
         Long productTaskId = productMessage.getProductTaskId();
-        String orderTradeOutNo = productMessage.getOrderTradeOutNo();
+        String orderOutTradeNo = productMessage.getOrderOutTradeNo();
         ProductTask productTask = productTaskService.getById(productTaskId);
         if (Objects.isNull(productTask)) {
             log.warn("[商品库存锁定] 不存在 message=[{}]", productMessage);
             return true;
         }
         if (Objects.equals(productTask.getLockState(), StockTaskStateEnum.LOCK.name())) {
-            Result result = productOrderFeignService.queryProductOrderState(orderTradeOutNo);
+            Result result = productOrderFeignService.queryProductOrderState(orderOutTradeNo);
             if (!result.ok()) {
                 log.error("[查询订单状态] 失败 message=[{}]", result.getMessage());
                 return false;

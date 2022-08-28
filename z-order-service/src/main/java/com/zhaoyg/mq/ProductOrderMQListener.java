@@ -18,14 +18,14 @@ import java.io.IOException;
  */
 @Slf4j
 @Component
-@RabbitListener
+@RabbitListener(queues = {"${rabbit.order.release-queue}"})
 @RequiredArgsConstructor
 public class ProductOrderMQListener {
     private final ProductOrderService productOrderService;
 
     @RabbitHandler
     public void closeProductOrder(ProductOrderMessage productOrderMessage, Message message, Channel channel) {
-        log.info("[定时关单] message = [{}]", productOrderMessage);
+        log.info("[定时关单] 接收MQ中消息 message = [{}]", productOrderMessage);
         boolean flag = productOrderService.closeProductOrder(productOrderMessage);
         long deliveryTag = message.getMessageProperties().getDeliveryTag();
         try {

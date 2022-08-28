@@ -59,8 +59,8 @@ public class CartController {
     }
 
     @PostMapping("/confirm_order_cart_items")
-    public Result confirmOrderCartItems(@RequestBody List<Long> productIds, @RequestParam("order_trade_out_no") String orderTradeOutNo) {
-        List<CartItemVO> items = cartService.confirmOrderCartItems(productIds, orderTradeOutNo);
+    public Result confirmOrderCartItems(@RequestBody List<Long> productIds, @RequestParam("order_out_trade_no") String orderOutTradeNo) {
+        List<CartItemVO> items = cartService.confirmOrderCartItems(productIds, orderOutTradeNo);
         return Result.success(items);
     }
 

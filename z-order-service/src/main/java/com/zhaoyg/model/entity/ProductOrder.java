@@ -10,8 +10,7 @@ import java.time.LocalDateTime;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * <p>
@@ -23,6 +22,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@With
+@AllArgsConstructor
+@NoArgsConstructor
 @TableName("product_order")
 @ApiModel(value = "ProductOrder对象", description = "")
 public class ProductOrder implements Serializable {

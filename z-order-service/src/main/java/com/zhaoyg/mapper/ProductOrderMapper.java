@@ -14,5 +14,5 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface ProductOrderMapper extends BaseMapper<ProductOrder> {
 
-    void updateState(@Param("orderTradeOutNo") String orderTradeOutNo, @Param("newState") String newState, @Param("oldState") String oldState);
+    void updateState(@Param("orderOutTradeNo") String orderOutTradeNo, @Param("newState") String newState, @Param("oldState") String oldState);
 }

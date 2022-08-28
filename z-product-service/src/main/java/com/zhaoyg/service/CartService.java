@@ -23,7 +23,7 @@ public interface CartService {
 
     Result updateItem(CartItemUpdateRequest cartItemUpdateRequest);
 
-    List<CartItemVO> confirmOrderCartItems(List<Long> productIds, String orderTradeOutNo);
+    List<CartItemVO> confirmOrderCartItems(List<Long> productIds, String orderOutTradeNo);
 
     void recoverItem(CartItemMessage productMessage);
 }

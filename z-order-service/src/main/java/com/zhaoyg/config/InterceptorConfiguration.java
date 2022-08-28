@@ -3,20 +3,16 @@ package com.zhaoyg.config;
 import cn.hutool.core.util.StrUtil;
 import com.zhaoyg.interceptor.AuthInterceptor;
 import feign.RequestInterceptor;
-import feign.RequestTemplate;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Objects;
 
 /**
  * @author zhao
@@ -32,7 +28,9 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
                 "/api/order/*/**"
         );
         registration.excludePathPatterns(
-                "/api/order/*/state"
+                "/api/order/*/state",
+                "/api/order/*//test_pay",
+                "/api/callback/*/**"
         );
     }
 

@@ -23,7 +23,7 @@ public class LockCouponRequest {
      * 订单号
      */
     @ApiModelProperty(value = "订单号", example = "ahjlkbjls")
-    @JsonProperty("order_trade_out_no")
-    private String orderTradeOutNo;
+    @JsonProperty("order_out_trade_no")
+    private String orderOutTradeNo;
 
 }

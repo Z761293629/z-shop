@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhaoyg.mapper.CouponTaskMapper">
-    <insert id="insertBatch">
+    <insert id="insertBatch" keyColumn="id" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO z_coupon.coupon_task
             (coupon_record_id, create_time, out_trade_no, lock_state)
         VALUES

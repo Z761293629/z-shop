@@ -9,5 +9,6 @@ import lombok.Data;
 @Data
 public class ProductOrderMessage {
     private Long messageId;
-    private String orderTradeOutNo;
+    private String orderOutTradeNo;
+    private String payType;
 }

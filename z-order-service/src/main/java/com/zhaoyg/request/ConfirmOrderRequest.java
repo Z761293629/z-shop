@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -64,5 +65,8 @@ public class ConfirmOrderRequest {
      */
     @JsonProperty("real_pay_amount")
     private BigDecimal realPayAmount;
+
+    @NotNull(message = "订单确认token不能为空")
+    private String token;
 
 }

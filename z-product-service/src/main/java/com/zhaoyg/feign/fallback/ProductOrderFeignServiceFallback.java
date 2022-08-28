@@ -17,7 +17,7 @@ public class ProductOrderFeignServiceFallback implements ProductOrderFeignServic
 
 
     @Override
-    public Result queryProductOrderState(String orderTradeOutNo) {
+    public Result queryProductOrderState(String orderOutTradeNo) {
         return Result.build(-1, throwable.getMessage());
     }
 }

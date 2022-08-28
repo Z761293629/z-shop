@@ -41,7 +41,7 @@ public class ProductOrderItem implements Serializable {
     private Long productId;
 
     @ApiModelProperty("商品名称")
-    private String productName;
+    private String productTitle;
 
     @ApiModelProperty("商品图片")
     private String productImg;

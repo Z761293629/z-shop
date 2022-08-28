@@ -16,6 +16,6 @@ import java.util.List;
 public interface CartFeignService {
 
     @PostMapping("/confirm_order_cart_items")
-    Result confirmOrderCartItems(@RequestBody List<Long> productIds, @RequestParam("order_trade_out_no") String orderTradeOutNo);
+    Result confirmOrderCartItems(@RequestBody List<Long> productIds, @RequestParam("order_out_trade_no") String orderOutTradeNo);
 
 }

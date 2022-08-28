@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 /**
  * @author zhao
  * @date 2022/8/22
@@ -17,7 +15,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class CartItemMessage {
     private Long userId;
-    private String orderTradeOutNo;
+    private String orderOutTradeNo;
     private Long productId;
     private Integer buyNum;
 }

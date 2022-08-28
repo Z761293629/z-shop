@@ -50,7 +50,7 @@ rabbit:
     #消息过期，进入释放死信队列的key
     release-routing-key: product.release.routing.key
     #消息过期时间,毫秒,测试改为15秒
-    ttl: 15000
+    ttl: 910000
   cart:
     #交换机
     event-exchange: cart.event.exchange
@@ -63,4 +63,4 @@ rabbit:
     #消息过期，进入释放死信队列的key
     release-routing-key: cart.release.routing.key
     #消息过期时间,毫秒,测试改为15秒
-    ttl: 15000
+    ttl: 910000

@@ -27,7 +27,7 @@ class RabbitTest extends CouponServiceBootTest {
     void testRelease() {
         CouponRecordMessage message = new CouponRecordMessage();
         message.setCouponTaskId(1L);
-        message.setOrderTradeOutNo("123456abc");
+        message.setOrderOutTradeNo("123456abc");
 
         rabbitTemplate.convertAndSend(rabbitProperties.getCouponEventExchange(), rabbitProperties.getCouponReleaseDelayRoutingKey(), message);
     }

@@ -14,5 +14,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface ProductOrderFeignService {
 
     @GetMapping("/api/order/v1/state")
-    Result queryProductOrderState(@RequestParam("order_trade_out_no") String orderTradeOutNo);
+    Result queryProductOrderState(@RequestParam("order_out_trade_no") String orderOutTradeNo);
 }

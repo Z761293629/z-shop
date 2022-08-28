@@ -39,7 +39,7 @@ public class ProductTask implements Serializable {
     private Integer buyNum;
 
     @ApiModelProperty("商品标题")
-    private String productName;
+    private String productTitle;
 
     @ApiModelProperty("锁定状态锁定LOCK  完成FINISH-取消CANCEL")
     private String lockState;
